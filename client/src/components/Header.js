@@ -1,25 +1,29 @@
-import React, { Component } from "react";
+import React, { Component, useReducer } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import Payments from "./Payments";
 class Header extends Component {
   renderContent() {
     switch (this.props.auth) {
       case null:
         return;
       case false:
-        console.log(this.props.auth);
         return (
           <li>
             <a href="/auth/google">Login with Google</a>
           </li>
         );
       default:
-        console.log(this.props.auth);
-        return (
-          <li>
+        return [
+
+          <li key="1">
+            <Payments />
+          </li>,
+          <li key="2" style={{margin:'0 10px'}}>Credits:{this.props.auth.credits}</li>,
+         <li key="3">
             <a href="/api/logout"> Logout</a>
-          </li>
-        );
+          </li>,
+        ];
     }
   }
   render() {
